@@ -1,0 +1,107 @@
+:root {
+    font-family: "Comic Sans MS", emoji;
+    font-size: 25px;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    width: 90%;
+    background-color: papayawhip;
+    box-shadow: 0 0.1rem 0.3rem gray    ;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 3rem;
+    padding-left: 3rem;
+}
+
+header .logo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    width: 12rem;
+}
+
+header .logo a {
+    text-decoration: none;
+    color: saddlebrown;
+}
+
+header .nav .nav-item {
+    display: inline;
+    margin: 0.3rem
+}
+
+header .nav-link {
+    color: saddlebrown;
+    text-decoration: none;
+}
+
+header .active {
+    background-color: saddlebrown;
+    color: lemonchiffon;
+    padding: 0.3rem;
+    border-radius: 0.3rem;
+}
+
+header h4 {
+    background-color: chocolate;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+}
+
+footer {
+    width: 100%;
+    font-size: 70%;
+    text-align: center;
+    padding: 0.3rem;
+    background-color: rgba(255, 218, 185, 0.52);
+}
+
+
+main {
+    padding-top: 3rem;
+
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.aneks p {
+    background-color: #F0F0F0FF;
+    padding-bottom: 0.3rem;
+    border-width: thin;
+}
+
+.resgistration-title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.5rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+
+    border-bottom: 1px solid #ccc;
+}
+
+form {
+    background-color: #F0F0F0FF;
+    font-size: 0.75rem;
+    width: 30vh;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    flex-flow: column nowrap;
+}
+
+form input {
+    margin: 0.25rem;
+    padding: 0.25rem;
+    border-radius: 0.25rem;
+    border: 1px solid #ccc;
+}
+
+form .btn {
+    background-color: darkgray;
+}

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Кофе пить люблю пиздец</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/normalize.css">
+</head>
+<body>
+<div th:insert="~{components/header :: header-component}"></div>
+<main>
+    <h1 th:text="${user.getFirstName()} + ' ' + ${user.getLastName()}"></h1>
+    <p th:text="'Ваш никнейм: ' + ${user.getUsername()}"></p>
+    <p th:text="'Ваша почта: ' + ${user.getEmail()}"></p>
+
+</main>
+<div th:insert="~{components/footer :: footer-component}"></div>
+</body>
+</html>
