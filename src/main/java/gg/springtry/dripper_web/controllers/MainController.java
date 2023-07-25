@@ -24,7 +24,7 @@ public class MainController {
     @GetMapping("/")
     public String mainPage(Model model) {
         model.addAttribute("is_authorized",true);
-        model.addAttribute("userId", 104L);
+        model.addAttribute("userId", 152L);
         return "main";
     }
 

@@ -1,4 +1,3 @@
-/*
 package gg.springtry.dripper_web.services;
 
 import gg.springtry.dripper_web.models.Role;
@@ -29,19 +28,20 @@ public class UserService implements UserDetailsService {
     final
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserService(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public UserService(UserRepository userRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.bCryptPasswordEncoder = new BCryptPasswordEncoder();
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
+        /*User user = userRepository.findByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
-        }
-        return user;
+        }*/
+        UserDetails user1 = org.springframework.security.core.userdetails.User.builder().username("user1").password("1234").passwordEncoder(bCryptPasswordEncoder::encode).roles("USER").build();
+        return user1;
     }
 
     public User findUserById(Long userId) {
@@ -61,7 +61,7 @@ public class UserService implements UserDetailsService {
         }
 
         user.setRoles(Collections.singleton(new Role(1L, "ROLE_USER")));
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+//        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return true;
     }
@@ -77,4 +77,3 @@ public class UserService implements UserDetailsService {
 
 
 }
-*/
