@@ -1,4 +1,3 @@
-/*
 package gg.springtry.dripper_web.controllers;
 
 import gg.springtry.dripper_web.models.User;
@@ -19,22 +18,26 @@ public class RegistrationController {
 
     @GetMapping("/registration")
     public String registration(Model model) {
+        if (userService.isLogged()) {
+            return "redirect:/";
+        }
         model.addAttribute("userForm", new User());
-
         return "registration-page";
     }
 
-    @PostMapping("/registration")
-    public String addUser(@ModelAttribute("userForm") User userForm, BindingResult bindingResult, Model model) {
+    /*@PostMapping("//register")
+    public String deleteThis(Model model) {
+        System.out.println("kekw");
+        return "redirect:/";
+    }*/
 
-        */
-/*if (bindingResult.hasErrors()) {
-            return "registration";
-        }
-        if (!userForm.getPassword().equals(userForm.getPasswordConfirm())){
-            model.addAttribute("passwordError", "Пароли не совпадают");
-            return "registration";
-        }*//*
+    @PostMapping("/register")
+    public String addUser(@ModelAttribute("userForm") User userForm, Model model) {
+
+//        if (!userForm.getPassword().equals(userForm.getPasswordConfirm())){
+//            model.addAttribute("passwordError", "Пароли не совпадают");
+//            return "registration";
+//        }
 
         if (!userService.saveUser(userForm)){
             model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
@@ -43,4 +46,4 @@ public class RegistrationController {
 
         return "redirect:/";
     }
-}*/
+}

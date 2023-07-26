@@ -39,11 +39,11 @@ public class MainController {
         return "redirect:/user/register";
     }
 
-    @GetMapping("/user/register")
+    /*@GetMapping("/user/register")
     public String userRegister(Model model) {
         model.addAttribute("is_authorized",true);
         return "registration-page";
-    }
+    }*/
 
     /*@GetMapping("/user/login")
     public String userLogin(Model model) {
@@ -51,12 +51,7 @@ public class MainController {
         return "login";
     }*/
 
-    @PostMapping("/user/add")
-    public String userAdd(@RequestParam String username, @RequestParam(name = "password") String passwordHash, @RequestParam String email, @RequestParam String firstName, @RequestParam String lastName, Model model) {
-        User user = new User(username, passwordHash, email, firstName, lastName);
-        userRepository.save(user);
-        return "redirect:/";
-    }
+
 
     @GetMapping("/user/delete")
     public String userDelete(@RequestParam Long userId, Model model) {
