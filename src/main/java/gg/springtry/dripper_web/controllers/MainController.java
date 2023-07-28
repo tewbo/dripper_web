@@ -4,6 +4,8 @@ package gg.springtry.dripper_web.controllers;
 import gg.springtry.dripper_web.models.User;
 import gg.springtry.dripper_web.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,14 +25,12 @@ public class MainController {
 
     @GetMapping("/")
     public String mainPage(Model model) {
-        model.addAttribute("is_authorized",true);
         model.addAttribute("userId", 152L);
         return "main";
     }
 
     @GetMapping("/user-page/{userId}")
     public String userPage(Model model, @PathVariable(value = "userId") Long userId) {
-        model.addAttribute("is_authorized",true);
         Optional<User> user = userRepository.findById(userId);
         if (user.isPresent()) {
             model.addAttribute("user", user.get());
@@ -38,20 +38,6 @@ public class MainController {
         }
         return "redirect:/user/register";
     }
-
-    /*@GetMapping("/user/register")
-    public String userRegister(Model model) {
-        model.addAttribute("is_authorized",true);
-        return "registration-page";
-    }*/
-
-    /*@GetMapping("/user/login")
-    public String userLogin(Model model) {
-//        model.addAttribute("is_authorized",true);
-        return "login";
-    }*/
-
-
 
     @GetMapping("/user/delete")
     public String userDelete(@RequestParam Long userId, Model model) {
@@ -63,6 +49,25 @@ public class MainController {
     public String drop(Model model) {
         userRepository.deleteAll();
         return "redirect:/";
+    }
+
+    @GetMapping("/debug/load")
+    public String debugLoad(Model model) {
+        return "redirect:/";
+    }
+
+    void LoadModel(Model model) {
+        /*if (!model.containsAttribute("user")) {
+            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            if (principal instanceof User) {
+                System.out.println("User found");
+//                model.addAttribute("user", principal);
+            } else {
+                System.out.println("User not found");
+            }
+        }*/
+//        model.addAttribute("userId", 152L);
+//        System.out.println(user);
     }
 
 }

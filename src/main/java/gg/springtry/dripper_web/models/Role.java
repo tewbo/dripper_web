@@ -13,7 +13,7 @@ public class Role implements GrantedAuthority {
     @Column(unique=true)
     private String name;
     @Transient
-    @ManyToMany(mappedBy = "roles")
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
     private Set<User> users;
 
     public Role() {

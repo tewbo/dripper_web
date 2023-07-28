@@ -38,12 +38,12 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        /*User user = userRepository.findByUsername(username);
+        User user = userRepository.findByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
-        }*/
-        UserDetails user1 = org.springframework.security.core.userdetails.User.builder().username("user1").password("1234").passwordEncoder(bCryptPasswordEncoder::encode).roles("USER").build();
-        return user1;
+        }
+//        UserDetails user1 = org.springframework.security.core.userdetails.User.builder().username("user1").password("1234").passwordEncoder(bCryptPasswordEncoder::encode).roles("USER").build();
+        return user;
     }
 
     public User findUserById(Long userId) {
@@ -62,7 +62,8 @@ public class UserService implements UserDetailsService {
         }
 
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setRoles(Collections.singleton(new Role("ROLE_USER")));
+        Role defaultRole = roleRepository.findByName("ROLE_USER");
+        user.setRoles(Collections.singleton(defaultRole));
 //        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return true;

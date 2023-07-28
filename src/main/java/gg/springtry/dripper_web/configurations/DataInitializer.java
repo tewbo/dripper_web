@@ -10,8 +10,11 @@ import org.springframework.context.event.EventListener;
 @Configuration
 public class DataInitializer {
 
-    @Autowired
-    private RoleRepository roleRepository;
+    private final RoleRepository roleRepository;
+
+    public DataInitializer(RoleRepository roleRepository) {
+        this.roleRepository = roleRepository;
+    }
 
     @EventListener
     public void onApplicationEvent(ContextRefreshedEvent event) {

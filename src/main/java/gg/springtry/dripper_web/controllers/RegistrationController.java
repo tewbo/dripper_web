@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class RegistrationController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    public RegistrationController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("/registration")
     public String registration(Model model) {
@@ -24,26 +27,19 @@ public class RegistrationController {
         model.addAttribute("userForm", new User());
         return "registration-page";
     }
-
-    /*@PostMapping("//register")
-    public String deleteThis(Model model) {
-        System.out.println("kekw");
-        return "redirect:/";
-    }*/
-
     @PostMapping("/register")
     public String addUser(@ModelAttribute("userForm") User userForm, Model model) {
 
-//        if (!userForm.getPassword().equals(userForm.getPasswordConfirm())){
-//            model.addAttribute("passwordError", "Пароли не совпадают");
-//            return "registration";
-//        }
+        if (!userForm.getPassword().equals(userForm.getPasswordConfirm())){
+            model.addAttribute("passwordError", "Пароли не совпадают");
+            return "registration-page";
+        }
 
         if (!userService.saveUser(userForm)){
             model.addAttribute("usernameError", "Пользователь с таким именем уже существует");
             return "registration-page";
         }
 
-        return "redirect:/";
+        return "redirect:/login";
     }
 }
