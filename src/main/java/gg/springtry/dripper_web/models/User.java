@@ -1,6 +1,8 @@
 package gg.springtry.dripper_web.models;
 
+import gg.springtry.dripper_web.services.UserService;
 import jakarta.persistence.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -29,6 +31,8 @@ public class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(name="role_id", referencedColumnName = "id")
     )
     private Set<Role> roles;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    private Set<Anek> aneks;
 
     public User() {
     }
@@ -129,5 +133,13 @@ public class User implements UserDetails {
 
     public void setPasswordConfirm(String passwordConfirm) {
         this.passwordConfirm = passwordConfirm;
+    }
+
+    public Set<Anek> getAneks() {
+        return aneks;
+    }
+
+    public void setAneks(Set<Anek> aneks) {
+        this.aneks = aneks;
     }
 }

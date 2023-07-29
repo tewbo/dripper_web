@@ -80,5 +80,11 @@ public class UserService implements UserDetailsService {
         return null != authentication && !("anonymousUser").equals(authentication.getName());
     }
 
+    public Long getAneksCount(Long userId) {
+        return em.createQuery("select count(a) from Anek a where a.author.id = :userId", Long.class)
+                .setParameter("userId", userId)
+                .getSingleResult();
+    }
+
 
 }

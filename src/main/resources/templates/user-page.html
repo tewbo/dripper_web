@@ -9,9 +9,9 @@
 <body>
 <div th:insert="~{components/header :: header-component}"></div>
 <main>
-    <h1 th:text="${user.getFirstName()} + ' ' + ${user.getLastName()}"></h1>
-    <p th:text="'Ваш никнейм: ' + ${user.getUsername()}"></p>
-    <p th:text="'Ваша почта: ' + ${user.getEmail()}"></p>
+    <h1 th:text="${current_user.getFirstName()} + ' ' + ${current_user.getLastName()}"></h1>
+    <p th:text="'Ваш никнейм: ' + ${current_user.getUsername()}"></p>
+    <p th:text="'Ваша почта: ' + ${current_user.getEmail()}"></p>
     <form th:action="@{/logout}" method="post">
         <input type="submit" value="Выйти из аккаунта" class="logout-btn"/>
     </form>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Кофе пить люблю пиздец</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/normalize.css">
+</head>
+<body>
+<div th:insert="~{components/header :: header-component}"></div>
+<main>
+  <div class="page-title">Топ-10 пользователей</div>
+  <table>
+    <tr>
+      <th>Никнейм</th>
+      <th>Имя</th>
+      <th>Количество опубликованных анеков</th>
+    </tr>
+    <tr th:each="user : ${users}">
+      <td th:text="${user.getUsername()}">Onions</td>
+      <td th:text="${user.getFirstName()}">2.41</td>
+    </tr>
+  </table>
+
+</main>
+<div th:insert="~{components/footer :: footer-component}"></div>
+</body>
+</html>

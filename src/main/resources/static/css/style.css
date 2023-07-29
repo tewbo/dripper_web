@@ -76,6 +76,15 @@ main {
     border-width: thin;
 }
 
+.page-title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.5rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    /*border-bottom: 1px solid #ccc;*/
+}
+
 .logout-btn {
     background-color: #F0F0F0FF;
     border: none;

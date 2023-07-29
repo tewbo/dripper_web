@@ -3,24 +3,22 @@ package gg.springtry.dripper_web.controllers;
 
 import gg.springtry.dripper_web.models.User;
 import gg.springtry.dripper_web.repo.UserRepository;
+import gg.springtry.dripper_web.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Optional;
 
 @Controller
 public class MainController {
-    private final UserRepository userRepository;
+    private final UserService userService;
 
-    public MainController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public MainController(UserService userService) {
+        this.userService = userService;
     }
 
     @GetMapping("/")
@@ -29,31 +27,21 @@ public class MainController {
         return "main";
     }
 
-    @GetMapping("/user-page/{userId}")
-    public String userPage(Model model, @PathVariable(value = "userId") Long userId) {
-        Optional<User> user = userRepository.findById(userId);
-        if (user.isPresent()) {
-            model.addAttribute("user", user.get());
-            return "user-page";
-        }
-        return "redirect:/user/register";
+    @GetMapping("/user-page")
+    public String userPage(Model model) {
+        return "user-page";
     }
 
     @GetMapping("/user/delete")
     public String userDelete(@RequestParam Long userId, Model model) {
-        userRepository.deleteById(userId);
+        userService.deleteUser(userId);
         return "redirect:/";
     }
 
-    @GetMapping("debug/drop")
-    public String drop(Model model) {
-        userRepository.deleteAll();
-        return "redirect:/";
-    }
-
-    @GetMapping("/debug/load")
-    public String debugLoad(Model model) {
-        return "redirect:/";
+    @GetMapping("top-users")
+    public String topUsers(Model model) {
+        model.addAttribute("users", userService.allUsers());
+        return "top-users";
     }
 
 }
