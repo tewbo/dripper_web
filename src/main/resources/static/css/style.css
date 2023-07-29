@@ -1,6 +1,8 @@
 :root {
     font-family: "Comic Sans MS", emoji;
     font-size: 25px;
+    --aside-width: 15rem;
+    --border-radius: 0.3rem;
 }
 
 header {
@@ -43,7 +45,7 @@ header .active {
     background-color: saddlebrown;
     color: lemonchiffon;
     padding: 0.3rem;
-    border-radius: 0.3rem;
+    border-radius: var(--border-radius);
 }
 
 header h4 {
@@ -57,6 +59,7 @@ footer {
     font-size: 70%;
     text-align: center;
     padding: 0.3rem;
+    margin-top: 1rem;
     background-color: rgba(255, 218, 185, 0.52);
 }
 
@@ -68,12 +71,16 @@ main {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    /*отступ для сайдбара*/
+    /*margin-right: var(--aside-width);*/
+    /*margin-right: 15.5rem;*/
 }
 
 .aneks p {
     background-color: #F0F0F0FF;
-    padding-bottom: 0.3rem;
+    padding: 0.3rem;
     border-width: thin;
+    border-radius: var(--border-radius);
 }
 
 .page-title {
@@ -89,7 +96,39 @@ main {
     background-color: #F0F0F0FF;
     border: none;
     padding: 0.3rem;
-    border-radius: 0.3rem;
+    border-radius: var(--border-radius);
     cursor: pointer;
 }
 
+.logout-btn:hover {
+    background-color: #F0F0F0FF;
+    border: none;
+    padding: 0.3rem;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    color: chocolate;
+}
+
+.middle {
+    display: flow-root;
+}
+
+aside {
+    float: right;
+    width: var(--aside-width);
+    /*width: 10rem;*/
+    margin-top: 4rem;
+    /*padding: 0.3rem;*/
+    background-color: peachpuff;
+    border-radius: var(--border-radius);
+}
+
+.add-anek, .add-anek input {
+    /*margin-top: 0.25rem;*/
+    margin-bottom: 0.25rem;
+}
+
+/*debug*/
+* {
+    outline: 1px solid red;
+}
