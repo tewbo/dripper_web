@@ -63,7 +63,8 @@ footer {
 
 main {
     padding-top: 3rem;
-
+    padding-left: 1rem;
+    padding-right: 1rem;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -75,33 +76,11 @@ main {
     border-width: thin;
 }
 
-.resgistration-title {
-    text-align: center;
-    font-weight: bold;
-    font-size: 1.5rem;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-
-    border-bottom: 1px solid #ccc;
-}
-
-form {
+.logout-btn {
     background-color: #F0F0F0FF;
-    font-size: 0.75rem;
-    width: 30vh;
-    display: flex;
-    flex-direction: column;
-    padding: 1rem;
-    flex-flow: column nowrap;
+    border: none;
+    padding: 0.3rem;
+    border-radius: 0.3rem;
+    cursor: pointer;
 }
 
-form input {
-    margin: 0.25rem;
-    padding: 0.25rem;
-    border-radius: 0.25rem;
-    border: 1px solid #ccc;
-}
-
-form .btn {
-    background-color: darkgray;
-}

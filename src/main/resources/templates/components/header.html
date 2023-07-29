@@ -15,10 +15,9 @@
             <li class="nav-item"><a href="#" class="nav-link">Проекты</a></li>
             <li class="nav-item"><a href="#" class="nav-link">Что-то ещё</a></li>
             <li class="nav-item"><a href="#" class="nav-link">Инфо</a></li>
-            <li class="nav-item auth" th:switch="${is_authorized}">
-                <a th:case="${true}" th:href="'/user-page/' + ${userId}" class="nav-link">Моя страница</a>
-                <a th:case="${false}" href="#" class="nav-link">Регистрация</a>
-                <a th:case="*" href="#" class="nav-link">Error</a>
+            <li class="nav-item auth">
+                <a th:if="${user ne null}" th:href="'/user-page/' + ${user.getId()}" class="nav-link">Моя страница</a>
+                <a th:if="${user eq null}" href="/login" class="nav-link">Войти</a>
             </li>
         </ul>
     </header>

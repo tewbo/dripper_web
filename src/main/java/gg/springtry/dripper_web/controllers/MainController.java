@@ -56,18 +56,4 @@ public class MainController {
         return "redirect:/";
     }
 
-    void LoadModel(Model model) {
-        /*if (!model.containsAttribute("user")) {
-            Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            if (principal instanceof User) {
-                System.out.println("User found");
-//                model.addAttribute("user", principal);
-            } else {
-                System.out.println("User not found");
-            }
-        }*/
-//        model.addAttribute("userId", 152L);
-//        System.out.println(user);
-    }
-
 }

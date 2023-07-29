@@ -1,22 +1,31 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<html lang="ru">
 <head>
-    <title>Spring Security Example </title>
+    <meta charset="UTF-8">
+    <title>Кофе пить люблю пиздец</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link rel="stylesheet" href="/css/register_login.css">
 </head>
 <body>
-<div th:if="${param.error}">
-    Invalid username and password.
-</div>
-<div th:if="${param.logout}">
-    You have been logged out.
-</div>
-<form th:action="@{/login}" method="post">
-    <div><label> User Name : <input type="text" name="username"/> </label></div>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
-    <div><input type="submit" value="Sign In"/></div>
-</form>
-<form th:action="@{/registration}" method="get">
-    <input type="submit" value="redirect"/>
-</form>
+<div th:insert="~{components/header :: header-component}"></div>
+<main>
+    <div class="page-title">Войти в аккаунт</div>
+    <form th:action="@{/login}" method="post">
+        <div th:if="${param.error}" class="not-logged-title">
+            Неправильное имя пользователя или пароль.
+        </div>
+        <div th:if="${param.logout}" class="not-logged-title">
+            Вы вышли из аккаунта.
+        </div>
+        Имя пользователя (никнейм):
+        <input type="username" name="username"/>
+        Пароль:
+        <input type="password" name="password"/>
+        <div><input type="submit" value="Sign In" class="btn"/></div>
+        <a href="/register">Зарегистрироваться</a>
+    </form>
+</main>
+<div th:insert="~{components/footer :: footer-component}"></div>
 </body>
 </html>

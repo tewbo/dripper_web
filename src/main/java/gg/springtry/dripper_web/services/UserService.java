@@ -42,7 +42,6 @@ public class UserService implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }
-//        UserDetails user1 = org.springframework.security.core.userdetails.User.builder().username("user1").password("1234").passwordEncoder(bCryptPasswordEncoder::encode).roles("USER").build();
         return user;
     }
 
@@ -64,7 +63,6 @@ public class UserService implements UserDetailsService {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         Role defaultRole = roleRepository.findByName("ROLE_USER");
         user.setRoles(Collections.singleton(defaultRole));
-//        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
         return true;
     }
@@ -81,7 +79,6 @@ public class UserService implements UserDetailsService {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         return null != authentication && !("anonymousUser").equals(authentication.getName());
     }
-
 
 
 }
