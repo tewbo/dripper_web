@@ -54,6 +54,10 @@ public class UserService implements UserDetailsService {
         return userRepository.findAll();
     }
 
+    public Iterable<User> allUsersSortedByPostsCount() {
+        return userRepository.findAllSortedByPostsCount();
+    }
+
     public boolean saveUser(User user) {
         User userFromDB = userRepository.findByUsername(user.getUsername());
         if (userFromDB != null) {

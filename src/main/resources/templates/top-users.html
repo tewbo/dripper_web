@@ -5,6 +5,7 @@
   <title>Кофе пить люблю пиздец</title>
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/normalize.css">
+  <link rel="stylesheet" href="/css/top-users.css">
 </head>
 <body>
 <div th:insert="~{components/header :: header-component}"></div>
@@ -17,8 +18,10 @@
       <th>Количество опубликованных анеков</th>
     </tr>
     <tr th:each="user : ${users}">
-      <td th:text="${user.getUsername()}">Onions</td>
-      <td th:text="${user.getFirstName()}">2.41</td>
+      <td th:text="${user.getUsername()}"></td>
+      <td th:text="${user.getFirstName()}"></td>
+      <td th:text="${user.getAneks().size()}"></td>
+<!--      Я не уверен, что эта штука будет работать при ленивой загрузке, но пока что оставлю так-->
     </tr>
   </table>
 

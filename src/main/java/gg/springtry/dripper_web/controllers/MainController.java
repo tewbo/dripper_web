@@ -43,7 +43,7 @@ public class MainController {
 
     @GetMapping("/top-users")
     public String topUsers(Model model) {
-        model.addAttribute("users", userService.allUsers());
+        model.addAttribute("users", userService.allUsersSortedByPostsCount());
         return "top-users";
     }
 
@@ -53,6 +53,11 @@ public class MainController {
             return "redirect:/?anekAddSuccess";
         }
         return "redirect:/?anekAddError&max_length=" + Anek.MAX_CONTENT_LENGTH;
+    }
+
+    @GetMapping("/nothing")
+    public String nothing(Model model) {
+        return "nothing";
     }
 
 }
