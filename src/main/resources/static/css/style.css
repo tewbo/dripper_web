@@ -3,12 +3,14 @@
     font-size: 25px;
     --aside-width: 15rem;
     --border-radius: 0.3rem;
+    --default-padding: 0.3rem;
 }
 
 header {
     position: fixed;
     top: 0;
-    width: 90%;
+    left: 0;
+    right: 0;
     background-color: papayawhip;
     box-shadow: 0 0.1rem 0.3rem gray    ;
     display: flex;
@@ -44,7 +46,7 @@ header .nav-link {
 header .active {
     background-color: saddlebrown;
     color: lemonchiffon;
-    padding: 0.3rem;
+    padding: var(--default-padding);
     border-radius: var(--border-radius);
 }
 
@@ -55,10 +57,9 @@ header h4 {
 }
 
 footer {
-    width: 100%;
     font-size: 70%;
     text-align: center;
-    padding: 0.3rem;
+    padding: var(--default-padding);
     margin-top: 1rem;
     background-color: rgba(255, 218, 185, 0.52);
 }
@@ -71,14 +72,16 @@ main {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+}
+
+.main-page {
     /*отступ для сайдбара*/
-    /*margin-right: var(--aside-width);*/
-    /*margin-right: 15.5rem;*/
+    margin-right: calc(var(--aside-width) + 2 * var(--default-padding) + 1rem);
 }
 
 .aneks p {
     background-color: #F0F0F0FF;
-    padding: 0.3rem;
+    padding: var(--default-padding);
     border-width: thin;
     border-radius: var(--border-radius);
 }
@@ -89,13 +92,12 @@ main {
     font-size: 1.5rem;
     padding-top: 1rem;
     padding-bottom: 1rem;
-    /*border-bottom: 1px solid #ccc;*/
 }
 
 .logout-btn {
     background-color: #F0F0F0FF;
     border: none;
-    padding: 0.3rem;
+    padding: var(--default-padding);
     border-radius: var(--border-radius);
     cursor: pointer;
 }
@@ -103,7 +105,7 @@ main {
 .logout-btn:hover {
     background-color: #F0F0F0FF;
     border: none;
-    padding: 0.3rem;
+    padding: var(--default-padding);
     border-radius: var(--border-radius);
     cursor: pointer;
     color: chocolate;
@@ -116,19 +118,18 @@ main {
 aside {
     float: right;
     width: var(--aside-width);
-    /*width: 10rem;*/
     margin-top: 4rem;
-    /*padding: 0.3rem;*/
+    margin-right: 1rem;
+    padding: var(--default-padding);
     background-color: peachpuff;
     border-radius: var(--border-radius);
 }
 
 .add-anek, .add-anek input {
-    /*margin-top: 0.25rem;*/
     margin-bottom: 0.25rem;
 }
 
 /*debug*/
-* {
-    outline: 1px solid red;
-}
+/** {*/
+/*    outline: 1px solid red;*/
+/*}*/

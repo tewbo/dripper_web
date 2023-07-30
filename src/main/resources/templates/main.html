@@ -15,10 +15,10 @@
 <div th:insert="~{components/header :: header-component}"></div>
 <div class="middle">
     <aside>
-<!--        <form th:action="@{/add_anek}" method="post" class="add-anek">-->
-<!--            <input type="text" placeholder="Ваш анек">-->
-<!--            <input type="submit" value="Опубликовать анек" class="btn">-->
-<!--        </form>-->
+        <form th:action="@{/add_anek}" method="post" class="add-anek">
+            <input type="text" placeholder="Ваш анек">
+            <input type="submit" value="Опубликовать анек" class="btn">
+        </form>
         <section class="aside-title">Популярные теги</section>
         <section class="tags">
             <a href="#">Кофе</a>
@@ -48,7 +48,7 @@
             veniam voluptates.
         </section>
     </aside>
-    <main>
+    <main class="main-page">
         <section class="aneks">
             <p>Пришли в кафе русский, француз, американец, китаец и еврей. Каждый заказал по чашечке кофе, и каждому в
                 кофе
