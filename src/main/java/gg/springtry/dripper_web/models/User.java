@@ -31,7 +31,7 @@ public class User implements UserDetails {
             inverseJoinColumns = @JoinColumn(name="role_id", referencedColumnName = "id")
     )
     private Set<Role> roles;
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "author")
     private Set<Anek> aneks;
 
     public User() {

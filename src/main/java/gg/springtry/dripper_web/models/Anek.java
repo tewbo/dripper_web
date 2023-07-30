@@ -1,18 +1,28 @@
 package gg.springtry.dripper_web.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Anek {
+    public static final int MAX_CONTENT_LENGTH = 4000;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String text;
-    private String author;
-    private Long likes;
+    @Column(length = MAX_CONTENT_LENGTH)
+    private String content;
+    private Long likes = 0L;
+
+    @ManyToOne()
+    @JoinColumn(name = "user_id", referencedColumnName = "id")
+    private User author;
+
+    public Anek() {
+    }
+
+    public Anek(String content, User author) {
+        this.content = content;
+        this.author = author;
+    }
 
     public Long getId() {
         return id;
@@ -22,20 +32,12 @@ public class Anek {
         this.id = id;
     }
 
-    public String getText() {
-        return text;
+    public String getContent() {
+        return content;
     }
 
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public String getAuthor_id() {
-        return author;
-    }
-
-    public void setAuthor_id(String author) {
-        this.author = author;
+    public void setContent(String text) {
+        this.content = text;
     }
 
     public Long getLikes() {
@@ -44,5 +46,13 @@ public class Anek {
 
     public void setLikes(Long likes) {
         this.likes = likes;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
     }
 }

@@ -75,9 +75,13 @@ public class UserService implements UserDetailsService {
         return false;
     }
 
-    public boolean isLogged() {
+    public User getLoggedUser() {
         final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return null != authentication && !("anonymousUser").equals(authentication.getName());
+        return authentication == null ? null : (User) authentication.getPrincipal();
+    }
+
+    public boolean isLogged() {
+        return getLoggedUser() != null;
     }
 
     public Long getAneksCount(Long userId) {
