@@ -23,34 +23,6 @@
         <div th:if="${param.anekAddSuccess}" class="add-anek-success">Ваш анек был добавлен!</div>
         <div th:if="${param.anekAddError}" class="add-anek-error"
              th:text="'Ошибка добавления анека! Анек должен быть непустым и содержать не больше ' + ${param.max_length} + ' символов'"></div>
-        <!--<section class="aside-title">Популярные теги</section>
-        <section class="tags">
-            <a href="#">Кофе</a>
-            <a href="#">Кофеин</a>
-            <a href="#">Кофеман</a>
-            <a href="#">Кофемашина</a>
-            <a href="#">Кофейня</a>
-            <a href="#">Кофейный</a>
-            <a href="#">Кофейня</a>
-            <a href="#">Кофейный</a>
-            <a href="#">Кофейня</a>
-            <a href="#">Кофейный</a>
-            <a href="#">Кофейня</a>
-            <a href="#">Кофейный</a>
-            <a href="#">Кофейня</a>
-            <a href="#">Кофейный</a>
-            <a href="#">Кофейня</a>
-            <a href="#">Кофейный</a>
-        </section>-->
-        <!--<section>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur exercitationem laudantium obcaecati
-            pariatur porro quod repellat unde vel! Eveniet fuga impedit iste, molestiae nam quae quos reiciendis
-            similique sit velit. Alias atque aut deserunt dolores, ducimus earum excepturi fugiat harum, maxime neque
-            nesciunt officia omnis praesentium, sit sunt tempore voluptate. Accusamus aspernatur doloribus magni soluta
-            voluptas, voluptates! Adipisci eligendi error, explicabo hic molestias nam natus necessitatibus, neque odio,
-            officia quae repudiandae saepe? Aliquam aspernatur dolor in libero, mollitia officiis rerum similique. Ad
-            cupiditate dolor doloribus dolorum ea harum iste iure minus nisi non nostrum quam, quia repellendus unde
-            veniam voluptates.
-        </section>-->
     </aside>
     <main class="main-page">
         <section class="aneks">
@@ -88,10 +60,5 @@
     </main>
 </div>
 <div th:insert="~{components/footer :: footer-component}"></div>
-<!--<footer>
-    <p>
-        Мам, купи мне клюшку, ебать. Я буду хоккеистом и ебла разбивать. Шайба нахуУуУъуъуъуй.
-    </p>
-</footer>-->
 </body>
 </html>

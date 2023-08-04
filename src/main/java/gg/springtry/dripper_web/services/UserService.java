@@ -6,7 +6,10 @@ import gg.springtry.dripper_web.repo.RoleRepository;
 import gg.springtry.dripper_web.repo.UserRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,7 +19,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -58,17 +63,24 @@ public class UserService implements UserDetailsService {
         return userRepository.findAllSortedByPostsCount();
     }
 
-    public boolean saveUser(User user) {
+    public void saveUser(User user) {
         User userFromDB = userRepository.findByUsername(user.getUsername());
         if (userFromDB != null) {
-            return false;
+            throw new ConstraintViolationException("Пользователь с таким именем уже существует", null);
         }
-
+        if (user.getPassword().length() > 16 || user.getPassword().length() < 4)
+        {
+            throw new ConstraintViolationException("Пароль должен быть от 4 до 16 символов", null);
+        }
+        Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
+        Set<ConstraintViolation<User>> violations = validator.validate(user);
+        if (!violations.isEmpty()) {
+            throw new ConstraintViolationException(violations);
+        }
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         Role defaultRole = roleRepository.findByName("ROLE_USER");
         user.setRoles(Collections.singleton(defaultRole));
         userRepository.save(user);
-        return true;
     }
 
     public boolean deleteUser(Long userId) {

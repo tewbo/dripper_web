@@ -1,7 +1,8 @@
 package gg.springtry.dripper_web.models;
 
-import gg.springtry.dripper_web.services.UserService;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -16,12 +17,14 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column(unique=true)
+    @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "Имя пользователя должно содержать только латинские буквы, цифры и нижние подчеркивания")
     private String username;
     private String password;
 
     @Transient
     private String passwordConfirm;
     private String email;
+    @Pattern(regexp = "^[a-zA-Zа-яА-ЯёЁ]+$", message = "Имя должно содержать только буквы")
     private String firstName;
     private String lastName;
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
