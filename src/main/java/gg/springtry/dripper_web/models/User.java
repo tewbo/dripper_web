@@ -1,15 +1,15 @@
 package gg.springtry.dripper_web.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Set;
 
+// Тут на самом деле полно проблем с тем, что при сериализации утекает куча данных, но пока что забьём
 @Entity
 public class User implements UserDetails {
 
@@ -35,7 +35,16 @@ public class User implements UserDetails {
     )
     private Set<Role> roles;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "author")
+    @JsonBackReference
     private Set<Anek> aneks;
+
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "user_dialog",
+            joinColumns = @JoinColumn(name="user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name="dialog_id", referencedColumnName = "id")
+    )
+    private Set<Dialog> dialogs;
 
     public User() {
     }
@@ -144,5 +153,13 @@ public class User implements UserDetails {
 
     public void setAneks(Set<Anek> aneks) {
         this.aneks = aneks;
+    }
+
+    public Set<Dialog> getDialogs() {
+        return dialogs;
+    }
+
+    public void setDialogs(Set<Dialog> dialogs) {
+        this.dialogs = dialogs;
     }
 }

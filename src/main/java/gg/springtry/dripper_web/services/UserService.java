@@ -1,7 +1,9 @@
 package gg.springtry.dripper_web.services;
 
+import gg.springtry.dripper_web.models.Dialog;
 import gg.springtry.dripper_web.models.Role;
 import gg.springtry.dripper_web.models.User;
+import gg.springtry.dripper_web.repo.DialogRepository;
 import gg.springtry.dripper_web.repo.RoleRepository;
 import gg.springtry.dripper_web.repo.UserRepository;
 import jakarta.persistence.EntityManager;
@@ -10,6 +12,7 @@ import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,14 +34,17 @@ public class UserService implements UserDetailsService {
     UserRepository userRepository;
     final
     RoleRepository roleRepository;
+    final
+    DialogRepository dialogRepository;
 
     final
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserService(UserRepository userRepository, RoleRepository roleRepository) {
+    public UserService(UserRepository userRepository, RoleRepository roleRepository, DialogRepository dialogRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        this.dialogRepository = dialogRepository;
     }
 
     @Override
@@ -105,6 +111,27 @@ public class UserService implements UserDetailsService {
                 .setParameter("userId", userId)
                 .getSingleResult();
     }
+
+    public Iterable<User> findAllExcept(User user) {
+        return userRepository.findAllExcept(user.getId());
+    }
+
+    public Dialog getTwoUsersDialog(Long userId1, Long userId2) {
+        Optional<User> user1 = userRepository.findById(userId1);
+        Optional<User> user2 = userRepository.findById(userId2);
+        if (user1.isPresent() && user2.isPresent()) {
+            Dialog commonDialog = dialogRepository.findDialogByTwoUsers(user1.get(), user2.get());
+            if (commonDialog != null) {
+                return commonDialog;
+            }
+            Dialog dialog = new Dialog();
+            dialog.setUsers(new HashSet<>(Set.of(user1.get(), user2.get())));
+            dialogRepository.save(dialog);
+            return dialog;
+        }
+        return null;
+    }
+
 
 
 }

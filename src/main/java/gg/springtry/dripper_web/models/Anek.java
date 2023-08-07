@@ -1,5 +1,6 @@
 package gg.springtry.dripper_web.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -14,6 +15,7 @@ public class Anek {
 
     @ManyToOne()
     @JoinColumn(name = "user_id", referencedColumnName = "id")
+    @JsonManagedReference
     private User author;
 
     public Anek() {

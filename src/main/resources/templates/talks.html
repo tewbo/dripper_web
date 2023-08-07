@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Кофе пить люблю пиздец</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/normalize.css">
+    <link rel="stylesheet" href="/css/talks.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<div th:insert="~{components/header :: header-component}"></div>
+<div class="middle">
+    <aside id="sidebar">
+        <!-- Список пользователей здесь -->
+    </aside>
+    <main>
+        <h2 class="page-title">Кофе-толки</h2>
+        <h4 class="select-title">Выберите пользователя, с которым хотите пообщаться</h4>
+        <div id="dialog">
+            <!-- Здесь будет отображаться текущий диалог -->
+        </div>
+    </main>
+</div>
+
+<div th:insert="~{components/footer :: footer-component}"></div>
+<script>
+    // Функция для получения списка пользователей и отображения их в сайд-баре
+    function loadUsers() {
+        $.ajax({
+            url: "/api/users", // Замените на ваш URL для получения списка пользователей
+            type: "GET",
+            dataType: "json",
+            success: function (users) {
+                // Очищаем сайд-бар
+                $("#sidebar").empty();
+
+                // Вставляем пользователей в сайд-бар
+                users.forEach(function (user) {
+                    let userDiv = $("<div class='user-talk'>").text(user.firstName + " " + user.lastName);
+                    userDiv.click(function () {
+                        // При клике на пользователя, загружаем историю диалога
+                        loadDialog(user.id);
+                    });
+                    $("#sidebar").append(userDiv);
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error("Ошибка при получении списка пользователей:", error);
+            }
+        });
+    }
+
+    // Функция для получения истории диалога с выбранным пользователем
+    function loadDialog(userId) {
+        $.ajax({
+            url: "/api/dialogs/" + userId, // Замените на ваш URL для получения диалога
+            type: "GET",
+            dataType: "json",
+            success: function (dialog) {
+                // Очищаем область диалога
+                let otherUser = dialog.users.find(user => user.id === userId);
+                $(".select-title").text("Диалог с " + otherUser.firstName + " " + otherUser.lastName);
+
+                // Вставляем сообщения из диалога в область диалога
+                if (!dialog.messages || dialog.messages.length === 0) {
+                    $("#dialog").text("Нет сообщений");
+                } else {
+                    dialog.messages.forEach(function (message) {
+                        let messageDiv = $("<div>").text(message.text);
+                        $("#dialog").append(messageDiv);
+                    });
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("Ошибка при получении диалога:", error);
+            }
+        });
+    }
+
+    // Загрузка списка пользователей при загрузке страницы
+    $(document).ready(function () {
+        loadUsers();
+    });
+</script>
+</body>
+</html>

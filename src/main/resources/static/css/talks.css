@@ -1,0 +1,8 @@
+.user-talk {
+    overflow:hidden;
+    text-overflow: ellipsis;
+    padding-top: 0.3rem;
+    padding-bottom: 0.3rem;
+    cursor: pointer;
+}
+

@@ -13,7 +13,7 @@ header {
     left: 0;
     right: 0;
     background-color: papayawhip;
-    box-shadow: 0 0.1rem 0.3rem gray    ;
+    box-shadow: 0 0.1rem 0.3rem gray;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -107,14 +107,14 @@ main {
     padding-bottom: 1rem;
 }
 
-.logout-btn {
+.logout-btn, .add-anek .btn {
     background-color: #F0F0F0FF;
     padding: var(--default-padding);
     border-radius: var(--border-radius);
     cursor: pointer;
 }
 
-.logout-btn:hover {
+.logout-btn:hover, .add-anek .btn:hover {
     background-color: #F0F0F0FF;
     padding: var(--default-padding);
     border-radius: var(--border-radius);
@@ -148,22 +148,6 @@ aside {
     /*я хз, что делает эта штука, но она магическим образом делает нормальный отступ справа*/
     box-sizing: border-box;
 }
-
-.add-anek .btn {
-    background-color: #F0F0F0FF;
-    padding: var(--default-padding);
-    border-radius: var(--border-radius);
-    cursor: pointer;
-}
-
-.add-anek .btn:hover {
-    background-color: #F0F0F0FF;
-    padding: var(--default-padding);
-    border-radius: var(--border-radius);
-    cursor: pointer;
-    color: chocolate;
-}
-/*todo: remove button copy-paste*/
 
 aside .add-anek-success {
     color: olivedrab;

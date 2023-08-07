@@ -3,6 +3,7 @@ package gg.springtry.dripper_web.controllers;
 
 import gg.springtry.dripper_web.models.Anek;
 import gg.springtry.dripper_web.models.User;
+import gg.springtry.dripper_web.repo.DialogRepository;
 import gg.springtry.dripper_web.repo.UserRepository;
 import gg.springtry.dripper_web.services.AnekService;
 import gg.springtry.dripper_web.services.UserService;
@@ -57,6 +58,13 @@ public class MainController {
 
     @GetMapping("/nothing")
     public String nothing(Model model) {
+        return "nothing";
+    }
+
+    @GetMapping("/debug/dialog")
+    public String debugDialog(Model model) {
+//        Object lol = dialogRepository.testCommand(null, null);
+//        model.addAttribute("dialog", dialogRepository.testCommand(null, null));
         return "nothing";
     }
 
