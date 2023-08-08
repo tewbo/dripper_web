@@ -1,9 +1,11 @@
 package gg.springtry.dripper_web.services;
 
 import gg.springtry.dripper_web.models.Dialog;
+import gg.springtry.dripper_web.models.Message;
 import gg.springtry.dripper_web.models.Role;
 import gg.springtry.dripper_web.models.User;
 import gg.springtry.dripper_web.repo.DialogRepository;
+import gg.springtry.dripper_web.repo.MessageRepository;
 import gg.springtry.dripper_web.repo.RoleRepository;
 import gg.springtry.dripper_web.repo.UserRepository;
 import jakarta.persistence.EntityManager;
@@ -36,15 +38,18 @@ public class UserService implements UserDetailsService {
     RoleRepository roleRepository;
     final
     DialogRepository dialogRepository;
+    final
+    MessageRepository messageRepository;
 
     final
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserService(UserRepository userRepository, RoleRepository roleRepository, DialogRepository dialogRepository) {
+    public UserService(UserRepository userRepository, RoleRepository roleRepository, DialogRepository dialogRepository, MessageRepository messageRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.bCryptPasswordEncoder = new BCryptPasswordEncoder();
         this.dialogRepository = dialogRepository;
+        this.messageRepository = messageRepository;
     }
 
     @Override
@@ -74,8 +79,7 @@ public class UserService implements UserDetailsService {
         if (userFromDB != null) {
             throw new ConstraintViolationException("Пользователь с таким именем уже существует", null);
         }
-        if (user.getPassword().length() > 16 || user.getPassword().length() < 4)
-        {
+        if (user.getPassword().length() > 16 || user.getPassword().length() < 4) {
             throw new ConstraintViolationException("Пароль должен быть от 4 до 16 символов", null);
         }
         Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
@@ -90,8 +94,13 @@ public class UserService implements UserDetailsService {
     }
 
     public boolean deleteUser(Long userId) {
-        if (userRepository.findById(userId).isPresent()) {
-            userRepository.deleteById(userId);
+        Optional<User> userFromDb = userRepository.findById(userId);
+        if (userFromDb.isPresent()) {
+            User user = userFromDb.get();
+            user.getRoles().clear();
+            user.getAneks().clear();
+            dialogRepository.deleteAll(user.getDialogs());
+            userRepository.delete(userFromDb.get());
             return true;
         }
         return false;
@@ -132,6 +141,13 @@ public class UserService implements UserDetailsService {
         return null;
     }
 
+    public void sendMessage(Long dialogId, String message) {
+        Optional<Dialog> dialog = dialogRepository.findById(dialogId);
+        if (dialog.isPresent()) {
+            Message newMessage = new Message(message, dialog.get(), getLoggedUser());
+            messageRepository.save(newMessage);
+        }
+    }
 
 
 }

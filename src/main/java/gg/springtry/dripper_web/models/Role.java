@@ -1,5 +1,6 @@
 package gg.springtry.dripper_web.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -14,6 +15,7 @@ public class Role implements GrantedAuthority {
     private String name;
     @Transient
     @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
+    @JsonBackReference
     private Set<User> users;
 
     public Role() {

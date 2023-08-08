@@ -2,13 +2,19 @@ package gg.springtry.dripper_web.controllers;
 
 import gg.springtry.dripper_web.models.User;
 import gg.springtry.dripper_web.services.UserService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,5 +61,17 @@ public class RegistrationController {
         }
 
         return "redirect:/login";
+    }
+
+    @PostMapping("/deleteAccount")
+    public String deleteAccount(Model model, HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes) {
+        if (userService.deleteUser(userService.getLoggedUser().getId())) {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            new SecurityContextLogoutHandler().logout(request, response, authentication);
+            model.addAttribute("current_user", null);
+            return "deleted-account";
+        }
+        redirectAttributes.addFlashAttribute("deleteError", "Ошибка удаления аккаунта");
+        return "redirect:/user-page";
     }
 }

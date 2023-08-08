@@ -59,18 +59,46 @@
             dataType: "json",
             success: function (dialog) {
                 // Очищаем область диалога
+                let dialogDiv = $("#dialog");
+                dialogDiv.empty();
                 let otherUser = dialog.users.find(user => user.id === userId);
                 $(".select-title").text("Диалог с " + otherUser.firstName + " " + otherUser.lastName);
 
                 // Вставляем сообщения из диалога в область диалога
                 if (!dialog.messages || dialog.messages.length === 0) {
-                    $("#dialog").text("Нет сообщений");
+                    dialogDiv.text("Нет сообщений");
                 } else {
                     dialog.messages.forEach(function (message) {
-                        let messageDiv = $("<div>").text(message.text);
-                        $("#dialog").append(messageDiv);
+                        let messageDiv = $("<div class='message'>");
+                        messageDiv.append("<div class='message-author'>" + message.sender.firstName + " " + message.sender.lastName + "</div>");
+                        messageDiv.append("<div class='message-content'>" + message.text + "</div>");
+                        dialogDiv.append(messageDiv);
                     });
                 }
+                dialogDiv.append("<form th:action=\"\" method=\"post\" class=\"chat-form\">\n" +
+                    "            <textarea name=\"content\"></textarea>\n" +
+                    "            <input type=\"submit\" value=\"Отправить\" class=\"btn\">\n" +
+                    "        </form>");
+                $("form").submit(function (event) {
+                    event.preventDefault();
+                    $.ajax({
+                        url: "/api/dialogs/" + dialog.id, // Замените на ваш URL для отправки сообщения
+                        type: "POST",
+                        contentType: "application/json",
+                        data: JSON.stringify({
+                            text: $("textarea").val()
+                        }),
+                        success: function () {
+                            // При успешной отправке сообщения, перезагружаем диалог
+                            loadDialog(userId);
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("Ошибка при отправке сообщения:", error);
+                        }
+                    });
+                    return false;
+                });
+
             },
             error: function (xhr, status, error) {
                 console.error("Ошибка при получении диалога:", error);

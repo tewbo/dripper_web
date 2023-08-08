@@ -13,7 +13,6 @@
     <div class="page-title">Страница регистрации</div>
     <form action="/register" method="post" th:object="${userForm}" class="register-form">
         <div th:if="${passwordError}" th:text="${passwordError}" class="not-logged-title"></div>
-<!--        <div th:if="${usernameError}" th:text="${usernameError}" class="not-logged-title"></div>-->
         <div th:each="error : ${errors}">
             <div th:text="${error}" class="not-logged-title"></div>
         </div>

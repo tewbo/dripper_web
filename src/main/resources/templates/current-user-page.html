@@ -11,9 +11,13 @@
 <main>
     <h1 th:text="${current_user.getFirstName()} + ' ' + ${current_user.getLastName()}"></h1>
     <p th:text="'Ваш никнейм: ' + ${current_user.getUsername()}"></p>
-    <p th:text="'Ваша почта: ' + ${current_user.getEmail()}"></p>
+    <p th:if="${current_user.getEmail() != ''}" th:text="'Ваша почта: ' + ${current_user.getEmail()}"></p>
+    <p th:if="${current_user.getEmail() == ''}" th:text="'Ваша почта: Не указана'"></p>
     <form th:action="@{/logout}" method="post">
         <input type="submit" value="Выйти из аккаунта" class="logout-btn"/>
+    </form>
+    <form th:action="@{/deleteAccount}" method="post">
+        <input type="submit" value="Удалить аккаунт" class="logout-btn"/>
     </form>
 
 </main>

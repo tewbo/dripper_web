@@ -1,8 +1,11 @@
 package gg.springtry.dripper_web.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -18,14 +21,19 @@ public class User implements UserDetails {
     private Long id;
     @Column(unique=true)
     @Pattern(regexp = "^[a-zA-Z0-9_]+$", message = "Имя пользователя должно содержать только латинские буквы, цифры и нижние подчеркивания")
+    @Size(max = 20, message = "Имя пользователя должно быть не длиннее 20 символов")
     private String username;
+    @JsonIgnore
     private String password;
 
     @Transient
     private String passwordConfirm;
+    @JsonIgnore
     private String email;
     @Pattern(regexp = "^[a-zA-Zа-яА-ЯёЁ]+$", message = "Имя должно содержать только буквы")
+    @Size(max = 20, message = "Имя должно быть не длиннее 20 символов")
     private String firstName;
+    @Size(max = 20, message = "Фамилия должна быть не длиннее 20 символов")
     private String lastName;
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
@@ -33,17 +41,14 @@ public class User implements UserDetails {
             joinColumns = @JoinColumn(name="user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name="role_id", referencedColumnName = "id")
     )
+    @JsonManagedReference
     private Set<Role> roles;
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "author")
     @JsonBackReference
     private Set<Anek> aneks;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "user_dialog",
-            joinColumns = @JoinColumn(name="user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name="dialog_id", referencedColumnName = "id")
-    )
+    @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
+    @JsonBackReference
     private Set<Dialog> dialogs;
 
     public User() {

@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface UserRepository extends CrudRepository<User, Long> {
     User findByUsername(String username);
-    @Query("SELECT u FROM User u WHERE u.id <> :userId")
+    @Query("SELECT u FROM User u WHERE u.id <> :userId ORDER BY u.firstName ASC")
     Iterable<User> findAllExcept(@Param("userId") Long userId);
     @Query("SELECT u FROM User u ORDER BY SIZE(u.aneks) DESC")
     Iterable<User> findAllSortedByPostsCount();

@@ -6,3 +6,37 @@
     cursor: pointer;
 }
 
+#dialog {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-form {
+    width: 50%;
+}
+
+.chat-form, .chat-form input, .chat-form textarea, .chat-form div {
+    margin-bottom: 0.25rem;
+    border-radius: var(--border-radius);
+}
+
+.chat-form textarea {
+    resize: none;
+    height: 3rem;
+    width: 100%;
+    /*я хз, что делает эта штука, но она магическим образом делает нормальный отступ справа*/
+    box-sizing: border-box;
+}
+
+.message {
+    font-size: 80%;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.message .message-author {
+    font-style: italic;
+    color: chocolate;
+
+}

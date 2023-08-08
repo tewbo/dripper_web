@@ -2,6 +2,7 @@ package gg.springtry.dripper_web.configurations;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
@@ -23,7 +24,7 @@ public class WebSecurityConfig {
         http
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/", "/home").permitAll()
-                        .requestMatchers("/css/**", "/js/**", "/images/**", "/register").permitAll()
+                        .requestMatchers("/css/**", "/js/**", "/img/**", "/register").permitAll()
                         .requestMatchers("/debug/**").permitAll()
                         .anyRequest().authenticated()
                 )
@@ -31,7 +32,10 @@ public class WebSecurityConfig {
                         .loginPage("/login")
                         .permitAll()
                 )
-                .logout(LogoutConfigurer::permitAll);
+                .logout(LogoutConfigurer::permitAll)
+                .csrf((csrf) -> csrf
+                        .ignoringRequestMatchers("/api/**")
+                );
 
         return http.build();
     }
