@@ -6,6 +6,11 @@
     cursor: pointer;
 }
 
+.user-talk:hover {
+    color: white;
+    text-shadow: 0 0 0.2rem #484848;
+}
+
 #dialog {
     height: 100%;
     display: flex;

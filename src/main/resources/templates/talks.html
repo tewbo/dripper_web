@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Кофе пить люблю пиздец</title>
+    <link rel="icon" href="/img/aeropress.ico">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/normalize.css">
     <link rel="stylesheet" href="/css/talks.css">
@@ -33,7 +34,7 @@
             dataType: "json",
             success: function (users) {
                 // Очищаем сайд-бар
-                $("#sidebar").empty();
+                $("#sidebar").empty().append("<strong>Выберите собеседника:</strong>")
 
                 // Вставляем пользователей в сайд-бар
                 users.forEach(function (user) {
@@ -54,7 +55,7 @@
     // Функция для получения истории диалога с выбранным пользователем
     function loadDialog(userId) {
         $.ajax({
-            url: "/api/dialogs/" + userId, // Замените на ваш URL для получения диалога
+            url: "/api/dialogs/" + userId,
             type: "GET",
             dataType: "json",
             success: function (dialog) {
