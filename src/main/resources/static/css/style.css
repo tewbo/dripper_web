@@ -1,5 +1,5 @@
 :root {
-    font-family: "Comic Sans MS", emoji;
+    font-family: "Comic Sans MS", "Arial", emoji;
     font-size: 25px;
     --aside-width: 15rem;
     --border-radius: 0.3rem;
@@ -32,6 +32,10 @@ header .logo {
 header .logo a {
     text-decoration: none;
     color: saddlebrown;
+}
+
+header .nav {
+    white-space: nowrap;
 }
 
 header .nav .nav-item {
