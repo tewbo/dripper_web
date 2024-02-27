@@ -24,6 +24,6 @@ public class AnekService {
     }
 
     public Iterable<Anek> allAneks() {
-        return anekRepository.findAll();
+        return anekRepository.findAllReversed();
     }
 }
