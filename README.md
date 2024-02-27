@@ -5,20 +5,16 @@
 _____
 ## Установка:
 1. Склонируйте репозиторий
-2. Перейдите на ветку stable
-   ``` bash
-   git checkout stable
-   ```
-3. Запустите docker-compose в репозитории
+2. Запустите docker-compose в репозитории
    ``` bash
    docker-compose up -d
    ```
-4. Скомпилируйте приложение
+3. Скомпилируйте приложение
    ``` bash
    mvn compile
    ```
    Если у вас не установлен Maven или JDK-17, это нужно будет сделать
-5. Запустите приложение
+4. Запустите приложение
    ``` bash
    mvn exec:java -Dexec.mainClass="gg.springtry.dripper_web.DripperWebApplication"
    ```
